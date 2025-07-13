@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:mega_count/l10n/app_localizations.dart';
 import 'package:mega_count/main.dart';
 import 'counter_column.dart';
@@ -64,7 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             tooltip: 'Spremeni temo',
             onPressed: () {
-              final currentMode = Theme.of(context).brightness;
               // Poišči najbližji ancestor MaterialApp in spremeni themeMode
               // Uporabimo InheritedWidget za state management
               MyAppTheme.of(context)?.toggleTheme();
@@ -106,21 +107,23 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      floatingActionButton: Align(
-        alignment: Alignment.bottomRight,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 16.0, right: 8.0),
-          child: FloatingActionButton.extended(
-            icon: const Icon(Icons.share),
-            label: Text(AppLocalizations.of(context)?.share ?? 'Deli'),
-            onPressed: () async {
-              await ShareHelper.shareScreenshotController(
-                _screenshotController,
-              );
-            },
-          ),
-        ),
-      ),
+      floatingActionButton: (!kIsWeb && (Platform.isAndroid || Platform.isIOS))
+          ? Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 16.0, right: 8.0),
+                child: FloatingActionButton.extended(
+                  icon: const Icon(Icons.share),
+                  label: Text(AppLocalizations.of(context)?.share ?? 'Deli'),
+                  onPressed: () async {
+                    await ShareHelper.shareScreenshotController(
+                      _screenshotController,
+                    );
+                  },
+                ),
+              ),
+            )
+          : null,
     );
   }
 }
