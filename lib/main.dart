@@ -36,8 +36,10 @@ class _MyAppThemeState extends State<MyAppTheme> {
       } else if (_themeMode == ThemeMode.dark) {
         _themeMode = ThemeMode.light;
       } else {
-        // Če je system, preklopi na dark
-        _themeMode = ThemeMode.dark;
+        final brightness = MediaQuery.of(context).platformBrightness;
+        _themeMode = brightness == Brightness.dark
+            ? ThemeMode.light
+            : ThemeMode.dark;
       }
     });
   }
@@ -77,6 +79,7 @@ class MyApp extends StatelessWidget {
         ThemeMode.system;
     return MaterialApp(
       title: 'Ata Ule šteje kote',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,
