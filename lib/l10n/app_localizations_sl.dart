@@ -16,4 +16,6 @@ class AppLocalizationsSl extends AppLocalizations {
 
   @override
   String get externalCorner => 'zunanji kot';
+
+  String get share => 'Deli';
 }

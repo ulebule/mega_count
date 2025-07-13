@@ -16,4 +16,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get externalCorner => 'external corner';
+
+  String get share => 'Share';
 }

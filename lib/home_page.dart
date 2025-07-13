@@ -3,6 +3,8 @@ import 'package:mega_count/l10n/app_localizations.dart';
 import 'package:mega_count/main.dart';
 import 'counter_column.dart';
 import 'utils/vibration_helper.dart';
+import 'utils/share_helper.dart';
+import 'package:screenshot/screenshot.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -16,6 +18,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _counterZunanji = 0;
+
+  final ScreenshotController _screenshotController = ScreenshotController();
 
   void _incrementCounter() async {
     await vibrate();
@@ -68,32 +72,53 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: CounterColumn(
-                label:
-                    AppLocalizations.of(context)?.internalCorner ??
-                    'notranji kot',
-                value: _counter,
-                onIncrement: _incrementCounter,
-                onDecrement: _decrementCounter,
-              ),
+      body: Screenshot(
+        controller: _screenshotController,
+        child: Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: CounterColumn(
+                    label:
+                        AppLocalizations.of(context)?.internalCorner ??
+                        'notranji kot',
+                    value: _counter,
+                    onIncrement: _incrementCounter,
+                    onDecrement: _decrementCounter,
+                  ),
+                ),
+                const SizedBox(width: 32),
+                Expanded(
+                  child: CounterColumn(
+                    label:
+                        AppLocalizations.of(context)?.externalCorner ??
+                        'zunanji kot',
+                    value: _counterZunanji,
+                    onIncrement: _incrementCounterZunanji,
+                    onDecrement: _decrementCounterZunanji,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(width: 32),
-            Expanded(
-              child: CounterColumn(
-                label:
-                    AppLocalizations.of(context)?.externalCorner ??
-                    'zunanji kot',
-                value: _counterZunanji,
-                onIncrement: _incrementCounterZunanji,
-                onDecrement: _decrementCounterZunanji,
-              ),
-            ),
-          ],
+          ),
+        ),
+      ),
+      floatingActionButton: Align(
+        alignment: Alignment.bottomRight,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 16.0, right: 8.0),
+          child: FloatingActionButton.extended(
+            icon: const Icon(Icons.share),
+            label: Text(AppLocalizations.of(context)?.share ?? 'Deli'),
+            onPressed: () async {
+              await ShareHelper.shareScreenshotController(
+                _screenshotController,
+              );
+            },
+          ),
         ),
       ),
     );

@@ -115,6 +115,14 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'external corner'**
   String get externalCorner;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  /// In sl, this message translates to:
+  /// **'Deli'**
+  String get share;
 }
 
 class _AppLocalizationsDelegate
