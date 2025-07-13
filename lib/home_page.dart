@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mega_count/l10n/app_localizations.dart';
+import 'package:mega_count/main.dart';
 import 'counter_column.dart';
 import 'utils/vibration_helper.dart';
 
@@ -50,6 +51,22 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(AppLocalizations.of(context)?.appTitle ?? widget.title),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Theme.of(context).brightness == Brightness.dark
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+            ),
+            tooltip: 'Spremeni temo',
+            onPressed: () {
+              final currentMode = Theme.of(context).brightness;
+              // Poišči najbližji ancestor MaterialApp in spremeni themeMode
+              // Uporabimo InheritedWidget za state management
+              MyAppTheme.of(context)?.toggleTheme();
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Row(
