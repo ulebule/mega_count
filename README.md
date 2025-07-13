@@ -1,6 +1,8 @@
 # mega_count
 
-This is a Flutter project generated using the Flutter CLI. It contains a simple counter app as a starting point.
+Simple counter app, with two columns for counting exernal and internal corners in the room.
+Using vibrate as a notice for user that button is pressed.
+Made in 5 minutes with github copilot :)
 
 ## Getting Started
 
