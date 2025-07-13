@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mega_count/l10n/app_localizations.dart';
 import 'package:vibration/vibration.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'home_page.dart';
 
 void main() {
@@ -22,7 +24,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Ata Ule šteje kote'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en'), Locale('sl')],
+      home: const MyHomePage(title: ''),
     );
   }
 }

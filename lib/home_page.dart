@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mega_count/l10n/app_localizations.dart';
 import 'counter_column.dart';
 import 'utils/vibration_helper.dart';
 
@@ -48,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(AppLocalizations.of(context)?.appTitle ?? widget.title),
       ),
       body: Center(
         child: Row(
@@ -56,7 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Expanded(
               child: CounterColumn(
-                label: 'notranji kot',
+                label:
+                    AppLocalizations.of(context)?.internalCorner ??
+                    'notranji kot',
                 value: _counter,
                 onIncrement: _incrementCounter,
                 onDecrement: _decrementCounter,
@@ -65,7 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(width: 32),
             Expanded(
               child: CounterColumn(
-                label: 'zunanji kot',
+                label:
+                    AppLocalizations.of(context)?.externalCorner ??
+                    'zunanji kot',
                 value: _counterZunanji,
                 onIncrement: _incrementCounterZunanji,
                 onDecrement: _decrementCounterZunanji,
